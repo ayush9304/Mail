@@ -1,3 +1,34 @@
 textarea {
     min-height: 400px;
 }
+
+.star{
+    color: red;
+}
+
+.user-box{
+    width: 45%;
+    height: 90vh;
+    border-radius: 5px;
+    display: grid;
+    place-items: center;
+    margin-top: 5vh;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0 0 13px rgba(0, 0, 0, .1);
+    padding: 10px 50px 10px 50px;
+}
+
+.user-box form > div{
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.name-input{
+    display: flex;
+    place-items: center;
+    justify-content: space-between;
+}
+.name-input div{
+    width: 48%;
+}
