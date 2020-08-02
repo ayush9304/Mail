@@ -29,6 +29,9 @@ document.addEventListener('DOMContentLoaded', function() {
         else
             {document.querySelector('#cpwd_msg').innerHTML = "";}
         
+        if (!check)
+            {return false;}
+
         if (pwd !== c_pwd)
         {
             document.querySelector('input[name="confirmation"]').value = "";

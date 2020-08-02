@@ -141,7 +141,8 @@ def login_view(request):
             return HttpResponseRedirect(reverse("index"))
         else:
             return render(request, "mail/login.html", {
-                "message": "Invalid email and/or password."
+                "message": "Invalid email and/or password.",
+                "email": email
             })
     else:
         return render(request, "mail/login.html")
@@ -173,7 +174,10 @@ def register(request):
         except IntegrityError as e:
             print(e)
             return render(request, "mail/register.html", {
-                "message": "Email address already taken."
+                "message": "Email address already taken.",
+                "first_name": first_name,
+                "last_name": last_name,
+                "email": email
             })
         login(request, user)
         return HttpResponseRedirect(reverse("index"))
