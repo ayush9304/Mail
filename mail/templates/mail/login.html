@@ -1,24 +1,42 @@
 {% extends "mail/layout.html" %}
 
+{% load static %}
+
 {% block body %}
-
-    <h2>Login</h2>
-
-    {% if message %}
-        <div>{{ message }}</div>
-    {% endif %}
-
-    <form action="{% url 'login' %}" method="post">
-        {% csrf_token %}
-        <div class="form-group">
-            <input autofocus class="form-control" type="email" name="email" placeholder="Email">
+    <div class="user-box">
+        <div>
+            <br>
+            <center>
+                <img src="{% static 'mail/Images/mail_logo2.png' %}" height="30em">
+                <h2>Sign In</h2>
+            </center>
         </div>
-        <div class="form-group">
-            <input class="form-control" type="password" name="password" placeholder="Password">
+
+        {% if message %}
+            <div>{{ message }}</div>
+        {% endif %}
+    
+        <form action="{% url 'login' %}" method="post" style="width: 100%;">
+            {% csrf_token %}
+            <div class="form-group">
+                <input class="form-control" type="email" name="email" placeholder="Email Address" value="{{email | default:''}}" autocomplete="off">
+                <span class="star"><small id='email_msg'></small></span>
+            </div>
+            <div class="form-group">
+                <input class="form-control" type="password" name="password" placeholder="Password" autocomplete="off">
+                <span class="star"><small id='pwd_msg'></small></span>
+            </div>
+            <center>
+                <input class="btn btn-primary" type="button" value="Sign In">
+            </center>
+        </form>
+    
+        <div>
+            Already have an account? <a href="{% url 'register' %}">Sign Up</a>
         </div>
-        <input class="btn btn-primary" type="submit" value="Login">
-    </form>
+    </div>
+{% endblock %}
 
-    Don't have an account? <a href="{% url 'register' %}">Register here.</a>
-
+{% block script %}
+    <script src="{% static 'mail/signin.js' %}"></script>
 {% endblock %}

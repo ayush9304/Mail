@@ -4,7 +4,12 @@
 
 {% block body %}
     <div class="user-box">
-        <h2>Register</h2>
+        <div>
+            <center>
+                <img src="{% static 'mail/Images/mail_logo2.png' %}" height="30em">
+                <h2>Sign Up</h2>
+            </center>
+        </div>
 
         {% if message %}
             <div>{{ message }}</div>
@@ -15,32 +20,32 @@
             <div class="form-group name-input">
                 <div>
                     <input class="form-control" type="text" name="first_name" placeholder="First Name" value="{{first_name | default:''}}" autocomplete="off">
-                    <span class="star"><small></small></span>
+                    <span class="star"><small id='fname_msg'></small></span>
                 </div>
                 <div>
                     <input class="form-control" type="text" name="last_name" placeholder="Last Name" value="{{last_name | default:''}}" autocomplete="off">
-                    <span class="star"><small></small></span>
+                    <span class="star"><small id='lname_msg'></small></span>
                 </div>
             </div>
             <div class="form-group">
                 <input class="form-control" type="email" name="email" placeholder="Email Address" value="{{email | default:''}}" autocomplete="off">
-                <span class="star"><small></small></span>
+                <span class="star"><small id='email_msg'></small></span>
             </div>
             <div class="form-group">
                 <input class="form-control" type="password" name="password" placeholder="Password" autocomplete="off">
-                <span class="star"><small></small></span>
+                <span class="star"><small id='pwd_msg'></small></span>
             </div>
             <div class="form-group">
                 <input class="form-control" type="password" name="confirmation" placeholder="Confirm Password" autocomplete="off">
-                <span class="star"><small></small></span>
+                <span class="star"><small id='cpwd_msg'></small></span>
             </div>
             <center>
-                <input class="btn btn-primary" type="submit" value="Register">
+                <input class="btn btn-primary" type="button" value="Sign Up">
             </center>
         </form>
     
         <div>
-            Already have an account? <a href="{% url 'login' %}">Log In here.</a>
+            Already have an account? <a href="{% url 'login' %}">Sign In</a>
         </div>
     </div>
 {% endblock %}
