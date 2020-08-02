@@ -1,15 +1,25 @@
 {% extends "mail/layout.html" %}
 {% load static %}
 
-{% block body %}
-    <h2>{{ request.user.email }}</h2>
+{% block nav %}
+    <img src="{% static 'mail/Images/mail_logo2.png' %}" height="50px">
 
-    <button class="btn btn-sm btn-outline-primary" id="inbox">Inbox</button>
-    <button class="btn btn-sm btn-outline-primary" id="compose">Compose</button>
-    <button class="btn btn-sm btn-outline-primary" id="sent">Sent</button>
-    <button class="btn btn-sm btn-outline-primary" id="archived">Archived</button>
+    <form class="form-inline" action="#">
+        <input class="form-control mr-sm-2" type="text" placeholder="Search">
+        <button class="btn" type="submit">Search</button>
+    </form>
+
     <a class="btn btn-sm btn-outline-primary" href="{% url 'logout' %}">Log Out</a>
-    <hr>
+{% endblock %}
+
+{% block sidebar %}
+    <button class="btn btn-primary" id="compose">Compose</button>
+    <div id="inbox" class="active">Inbox</div>
+    <div id="sent">Sent</div>
+    <div id="archived">Archived</div>
+{% endblock %}
+
+{% block body %}
 
     <div id="emails-view">
     </div>

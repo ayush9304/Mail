@@ -30,16 +30,20 @@ function load_mailbox(mailbox) {
 
   // Show the mailbox name
   document.querySelector('#emails-view').innerHTML = `<h3>${mailbox.charAt(0).toUpperCase() + mailbox.slice(1)}</h3>`;
-
   fetch(`/emails/${mailbox}`)
   .then(response => response.json())
   .then(emails => {
     emails.forEach(email => {
       let div = document.createElement('div');
-      div.setAttribute('class', 'email-list');
-      div.innerHTML = email.;
-      document.querySelector("#emails-view").append(div);
+      let list_item = document.createElement('div');
+      list_item.setAttribute('class', 'list_email');
+      list_item.setAttribute('data-id', email.id);
+      list_item.innerHTML = `
+        <div class='list_name'>${email.sender_name}</div>
+        <div class='list_subject'>${email.subject}</div>
+        <div class='list_time'>12 July 2020</div>
+      `;
+      document.querySelector("#emails-view").append(list_item);
     });
   });
-
 }

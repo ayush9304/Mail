@@ -24,6 +24,9 @@ document.addEventListener('DOMContentLoaded', function() {
         else
             {document.querySelector('#pwd_msg').innerHTML = "";}
 
+        if (!check)
+            {return false;}
+
         if (c_pwd.length === 0)
             {document.querySelector('#cpwd_msg').innerHTML = "Confirm your password";check=false;}
         else

@@ -1,3 +1,4 @@
+
 textarea {
     min-height: 400px;
 }
@@ -31,4 +32,80 @@ textarea {
 }
 .name-input div{
     width: 48%;
+}
+
+
+.list_email{
+    border: .1px solid rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0,0,0,.1);
+    border-top-color: rgba(0,0,0,.1);
+    display: flex;
+    justify-content: space-between;
+    padding-top: .5em;
+    padding-bottom: .5em;
+    padding-left: 5%;
+    padding-right: 5%;
+}
+.list_email:hover{
+    border: .1px solid rgba(0,0,0,.1);
+    box-shadow: 0 .5px 5px rgba(0,0,0,.1);
+    cursor: pointer;
+    transform: scaleZ(1.5);
+}
+
+.list_name{
+    width: 20%;
+}
+.list_subject{
+    width: 60%;
+}
+.list_time{
+    width: 20%;
+    justify-content: right;
+}
+
+.navbar{
+    height: 11vh;
+}
+
+.inbox-body{
+    display: flex;
+    position: relative;
+    top: 11vh;
+}
+
+.sidebar{
+    width: 15%;
+    display: block;
+    position: fixed;
+    padding: 20px 10px 20px 15px;
+}
+.sidebar div{
+    padding: 4px 12px;
+}
+.sidebar div:hover{
+    cursor: pointer;
+    background-color: rgba(0, 91, 200, .1);
+}
+.sidebar .active:hover{
+    background-color: rgba(0, 91, 230, .3);
+}
+.sidebar div:active{
+    cursor: pointer;
+    background-color: rgba(0, 91, 200, .3);
+}
+.sidebar button{
+    margin-bottom: 10px;
+}
+
+.active{
+    background-color: rgba(0, 91, 230, .3);
+    border-left: 2px solid rgba(0, 91, 230, 1);
+}
+
+.main{
+    left: 15%;
+    width: 85%;
+    padding: 20px;
+    position: fixed;
 }

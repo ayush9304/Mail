@@ -10,19 +10,9 @@
         {% endblock %}
     </head>
     <body>
-        <nav class="navbar navbar-light fixed-top" style="border-bottom: .5px solid rgba(0,91,170,.6)">
-            {% block nav %}
+        <div class="container">
+            {% block body %}
             {% endblock %}
-        </nav>
-        <div class="inbox-body">
-            <div class="sidebar">
-                {% block sidebar %}
-                {% endblock %}
-            </div>
-            <div class="main">
-                {% block body %}
-                {% endblock %}
-            </div>
         </div>
     </body>
 </html>
