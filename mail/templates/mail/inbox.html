@@ -4,16 +4,29 @@
 {% block nav %}
     <img src="{% static 'mail/Images/mail_logo2.png' %}" height="50px">
 
-    <form class="form-inline" action="#">
-        <input class="form-control mr-sm-2" type="text" placeholder="Search">
-        <button class="btn" type="submit">Search</button>
-    </form>
+    <div class="search-bar">
+        <form class="form-inline" action="#">
+            <input type="text" placeholder="Search">
+            <button class="btn" type="submit">
+                <svg width="1.3em" height="1.42em" viewBox="0 1.2 16 15" class="bi bi-search" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"/>
+                    <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"/>
+                </svg>
+            </button>
+        </form>
+    </div>
 
     <a class="btn btn-sm btn-outline-primary" href="{% url 'logout' %}">Log Out</a>
 {% endblock %}
 
 {% block sidebar %}
-    <button class="btn btn-primary" id="compose">Compose</button>
+    <button class="btn btn-primary" id="compose">
+        <svg width="1em" height="1.2em" viewBox="0 1.8 16 16" class="bi bi-plus-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M8 3.5a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5H4a.5.5 0 0 1 0-1h3.5V4a.5.5 0 0 1 .5-.5z"/>
+            <path fill-rule="evenodd" d="M7.5 8a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1H8.5V12a.5.5 0 0 1-1 0V8z"/>
+            <path fill-rule="evenodd" d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+        </svg> 
+        Compose</button>
     <div id="inbox" class="active">Inbox</div>
     <div id="sent">Sent</div>
     <div id="archived">Archived</div>
@@ -25,19 +38,23 @@
     </div>
 
     <div id="compose-view">
-        <h3>New Email</h3>
         <form id="compose-form">
-            <div class="form-group">
-                From: <input disabled class="form-control" value="{{ request.user.email }}">
+            <div>
+                <input class="form-control" value="{{ request.user.email }}" type="hidden">
             </div>
-            <div class="form-group">
-                To: <input id="compose-recipients" class="form-control">
+            <div class="compose-input-to">
+                <span>To</span>
+                <input id="compose-recipients">
             </div>
-            <div class="form-group">
-                <input class="form-control" id="compose-subject" placeholder="Subject">
+            <div class="compose-input-subject">
+                <input id="compose-subject" placeholder="Add a subject">
             </div>
-            <textarea class="form-control" id="compose-body" placeholder="Body"></textarea>
-            <input type="submit" class="btn btn-primary"/>
+            <div class="compose-input-body">
+                <textarea id="compose-body" placeholder="Body"></textarea>
+            </div>
+            <div class="compose-input-send">
+                <input type="submit" class="btn btn-primary" value="Send">
+            </div>
         </form>
     </div>
 {% endblock %}
