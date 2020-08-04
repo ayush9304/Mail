@@ -1,4 +1,11 @@
 
+#preloader{
+    background-image: url('/static/mail/Images/loading.gif');
+    background-position: center;
+    background-repeat: no-repeat;
+    size: cover;
+}
+
 .star{
     color: red;
 }
@@ -34,7 +41,6 @@
 .list_email{
     border: .1px solid rgba(0, 0, 0, 0);
     border-bottom-color: rgba(0,0,0,.1);
-    border-top-color: rgba(0,0,0,.1);
     display: flex;
     justify-content: space-between;
     padding-top: .5em;
@@ -43,7 +49,9 @@
     padding-right: 5%;
 }
 .list_email:hover{
-    border: .1px solid rgba(0,0,0,.1);
+    border-left-color: rgba(0,0,0,.1);
+    border-right-color: rgba(0,0,0,.1);
+    border-bottom-color: rgba(0,0,0,.1);
     box-shadow: 0 .5px 5px rgba(0,0,0,.1);
     cursor: pointer;
     transform: scaleZ(1.5);
@@ -86,7 +94,25 @@
     padding-right: 1.5em;
 }
 .search-bar button:hover{
-    color: rgba(0, 91, 230, 1);
+    color: white;
+    background-color: rgba(0, 123, 255, 1);
+}
+.search-bar button:focus{
+    color: white;
+    background-color: rgba(0, 123, 255, 1);
+    box-shadow: inset 0 0 0 1px white;
+    
+}
+
+.nav-right{
+    display: flex;
+}
+.user_name{
+    font-size: 1.05em;
+    box-sizing: border-box;
+}
+.user_name span{
+    vertical-align: middle;
 }
 
 .inbox-body{
@@ -106,22 +132,22 @@
 }
 .sidebar div:hover{
     cursor: pointer;
-    background-color: rgba(0, 91, 200, .1);
+    background-color: rgba(0, 91, 230, .1);
 }
 .sidebar .active:hover{
     background-color: rgba(0, 91, 230, .3);
 }
 .sidebar div:active{
     cursor: pointer;
-    background-color: rgba(0, 91, 200, .3);
+    background-color: rgba(0, 91, 230, .3);
 }
 .sidebar button{
     margin-bottom: 10px;
 }
 
-.active{
+.sidebar .active{
     background-color: rgba(0, 91, 230, .3);
-    border-left: 2px solid rgba(0, 91, 230, 1);
+    border-left:  2px solid rgba(0, 91, 230, 1);
 }
 
 .main{
@@ -142,7 +168,7 @@
     padding: 15px;
 }
 #compose-view{
-    padding: 30px 0px;
+    padding-top: 30px;
 }
 
 .compose-input-to, .compose-input-subject, .compose-input-body{
@@ -151,7 +177,7 @@
     margin: 10px 20px;
 }
 .compose-input-send{
-    margin: 10px 20px;
+    margin: 10px 20px 0px 20px;
 }
 .compose-input-send input{
     padding: 5px 20px;
@@ -178,4 +204,10 @@
 }
 .compose-input-to input:focus, .compose-input-subject input:focus, .compose-input-body textarea:focus{
     outline: none;
+}
+
+#email-view{
+    min-height: 100px;
+    padding: 5px 20px 10px 20px;
+    display: none;
 }
