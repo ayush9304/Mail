@@ -162,11 +162,52 @@
     top: 11vh;
     background-color: white;
     border-bottom: .5px solid rgba(0, 0, 0, .2);
+    display: flex;
+}
+.main-top #email-action-buttons{
+    margin-bottom: auto;
+    margin-top: auto;
+}
+.main-top button{
+    border: none;
+    background: none;
 }
 
 #email-view{
-    padding: 15px;
+    padding: 15px 20px 15px 20px;
 }
+#email-subject{
+    font-size: 1.5em;
+    margin-left: 5px;
+}
+#email-sender-receiver{
+    display: flex;
+    margin: 15px 10px 15px 0px;
+    height: 3em;
+    font-size: .85em;
+    justify-content: space-between;
+}
+#email-sender-receiver-left{
+    display: flex;
+}
+#email-sender-name{
+    font-weight: bold;
+    font-size: 1em;
+}
+#email-sender-address, #email-time{
+    color: rgb(85, 85, 85);
+}
+#email-sender-receiver svg{
+    margin-right: 1em;
+}
+#email-body{
+    padding: 5px 20px 5px 20px;
+}
+#email-action{
+    margin: 20px;
+}
+
+
 #compose-view{
     padding-top: 30px;
 }

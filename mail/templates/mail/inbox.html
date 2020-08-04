@@ -48,6 +48,39 @@
     </div>
 
     <div id="email-view">
+        <div id="email-subject"></div>
+        <div id="email-sender-receiver">
+            <div id="email-sender-receiver-left">
+                <div id="email-sender-icon">
+                    <svg width="3em" height="3em" viewBox="0 0 16 16" class="bi bi-person-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M13.468 12.37C12.758 11.226 11.195 10 8 10s-4.757 1.225-5.468 2.37A6.987 6.987 0 0 0 8 15a6.987 6.987 0 0 0 5.468-2.63z"/>
+                        <path fill-rule="evenodd" d="M8 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                        <path fill-rule="evenodd" d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zM0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8z"/>
+                    </svg>
+                </div>
+                <div>
+                    <div id="email-sender">
+                        <span id="email-sender-name"></span>
+                        <span id="email-sender-address"></span>
+                    </div>
+                    <div id="email-receiver"></div>
+                </div>
+            </div>
+            <div id="email-time"></div>
+        </div>
+        <div id="email-body"></div>
+        <div id="email-action">
+            <button class="btn">
+                <svg width="1.2em" height="1.3em" viewBox="0 1 16 16" class="bi bi-reply-fill" fill="currentColor" transform="scale(-1,1)" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M9.079 11.9l4.568-3.281a.719.719 0 0 0 0-1.238L9.079 4.1A.716.716 0 0 0 8 4.719V6c-1.5 0-6 0-7 8 2.5-4.5 7-4 7-4v1.281c0 .56.606.898 1.079.62z"/>
+                </svg>&nbsp;
+                Reply&nbsp;&nbsp;</button>
+            <button class="btn">
+                <svg width="1.2em" height="1.3em" viewBox="0 1 16 16" class="bi bi-forward-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M9.77 12.11l4.012-2.953a.647.647 0 0 0 0-1.114L9.771 5.09a.644.644 0 0 0-.971.557V6.65H2v3.9h6.8v1.003c0 .505.545.808.97.557z"/>
+                </svg>&nbsp;
+                Forward</button>
+        </div>
     </div>
 
     <div id="compose-view">
