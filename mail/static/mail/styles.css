@@ -157,24 +157,33 @@
     padding: 0px 20px 20px 20px;
 }
 .main-top{
-    height: 6vh;
+    height: 8vh;
     position: sticky;
     top: 11vh;
     background-color: white;
     border-bottom: .5px solid rgba(0, 0, 0, .2);
-    display: flex;
 }
-.main-top #email-action-buttons{
-    margin-bottom: auto;
-    margin-top: auto;
+.action-buttons{
+    position: absolute;
+    top: 2vh;
 }
 .main-top button{
     border: none;
     background: none;
+    margin-left: 5px;
+    margin-right: 5px;
+    color: #505050;
+}
+.main-top button:hover{
+    color: #005be6;
+}
+.main-top button:focus{
+    outline: none;
 }
 
 #email-view{
-    padding: 15px 20px 15px 20px;
+    min-height: 100px;
+    padding: 10px 20px 10px 20px;
 }
 #email-subject{
     font-size: 1.5em;
@@ -245,10 +254,4 @@
 }
 .compose-input-to input:focus, .compose-input-subject input:focus, .compose-input-body textarea:focus{
     outline: none;
-}
-
-#email-view{
-    min-height: 100px;
-    padding: 5px 20px 10px 20px;
-    display: none;
 }

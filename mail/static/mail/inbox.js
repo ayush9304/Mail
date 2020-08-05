@@ -6,6 +6,8 @@ document.addEventListener('DOMContentLoaded', function() {
   document.querySelector('#archive').addEventListener('click', () => load_mailbox('archive'));
   document.querySelector('#compose').addEventListener('click', compose_email);
   document.querySelector('#compose-form').onsubmit = send;
+  document.querySelector('#refresh').addEventListener('click', refresh);
+  document.querySelector('#mark-archive').addEventListener('click', mark_archive);
 
 
   // By default, load the inbox
@@ -31,6 +33,7 @@ function compose_email() {
 function load_mailbox(mailbox) {
   
   document.querySelector('.main-top').style.display = 'block';
+  document.querySelector('#refresh').style.display = 'inline';
 
   // Show the mailbox and hide other views
   document.querySelector('#emails-view').style.display = 'block';
@@ -87,6 +90,7 @@ function show_mail(mail_id) {
   document.querySelector('#emails-view').style.display = 'none';
   document.querySelector('#compose-view').style.display = 'none';
   document.querySelector('#email-view').style.display = 'block';
+  document.querySelector('#refresh').style.display = 'none';
 
   fetch('/emails/' + parseInt(mail_id))
   .then(response => response.json())
@@ -96,28 +100,40 @@ function show_mail(mail_id) {
     document.querySelector('#email-sender-address').innerHTML = '('+email.sender+')';
     document.querySelector('#email-receiver').innerHTML = 'To: '+email.recipients;
     document.querySelector('#email-time').innerHTML = email.timestamp;
-    document.querySelector('#email-body').innerHTML = email.body;
+    document.querySelector('#email-body').innerText = email.body;
+    if (email.archived === True)
+      {
+        document.querySelector("#mark-unarchive").style.display = 'inline';
+        document.querySelector('#mark-archive').style.display = 'none';
+      }
+    else
+      {
+        document.querySelector('#mark-unarchive').style.display = 'none';
+        document.querySelector('#mark-archive').style.display = 'inline';
+      }
+    if (email.read === True)
+      {
+        document.querySelector("#mark-unread").style.display = 'inline';
+        document.querySelector('#mark-read').style.display = 'none';
+      }
+    else
+      {
+        document.querySelector('#mark-unread').style.display = 'none';
+        document.querySelector('#mark-read').style.display = 'inline';
+      }
+    document.querySelector("#mark-archive").setAttribute('data-mail_id', email.id);
+    document.querySelector("#mark-unarchive").setAttribute('data-mail_id', email.id);
+    document.querySelector('#mark-read').setAttribute('data-mail_id', email.id);
+    document.querySelector('#mark-unread').setAttribute('data-mail_id', email.id);
   });
-  //let div = document.createElement('div');
-  //div.setAttribute()
-  //let archive = document.createElement('button');
-  //archive.setAttribute('id', 'make-archive');
-  //archive.setAttribute('title', 'Archive');
-  //let read = document.createElement('button');
-  //read.setAttribute('id', 'mark-read');
-  //read.setAttribute('title', 'Mark as read');
-  //let unread = document.createElement('button');
-  //unread.setAttribute('id', 'mark-unread');
-  //unread.setAttribute('title', 'Mark as unread');
-  //archive.innerHTML = `<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-archive-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-  //<path fill-rule="evenodd" d="M12.643 15C13.979 15 15 13.845 15 12.5V5H1v7.5C1 13.845 2.021 15 3.357 15h9.286zM6 7a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1H6zM.8 1a.8.8 0 0 0-.8.8V3a.8.8 0 0 0 .8.8h14.4A.8.8 0 0 0 16 3V1.8a.8.8 0 0 0-.8-.8H.8z"/>
-  //</svg>`;
-  //read.innerHTML = `<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-envelope-open-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-  //<path d="M8.941.435a2 2 0 0 0-1.882 0l-6 3.2A2 2 0 0 0 0 5.4v.313l6.709 3.933L8 8.928l1.291.717L16 5.715V5.4a2 2 0 0 0-1.059-1.765l-6-3.2zM16 6.873l-5.693 3.337L16 13.372v-6.5zm-.059 7.611L8 10.072.059 14.484A2 2 0 0 0 2 16h12a2 2 0 0 0 1.941-1.516zM0 13.373l5.693-3.163L0 6.873v6.5z"/>
-  //</svg>`;
-  //unread.innerHTML = `<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-envelope-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-  //<path fill-rule="evenodd" d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555zM0 4.697v7.104l5.803-3.558L0 4.697zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757zm3.436-.586L16 11.801V4.697l-5.803 3.546z"/>
-  //</svg>`;
-  //div.append(archive, read, unread);
-  //document.querySelector('.main-top').append(div);
+}
+
+function refresh() {
+  let refresh_item = document.querySelector('.active').innerHTML;
+  load_mailbox(refresh_item.toLowerCase());
+}
+
+function mark_archive(mail_id) {
+  fetch('/emails/' + parseInt(mail_id))
+  .then()
 }
