@@ -255,3 +255,7 @@
 .compose-input-to input:focus, .compose-input-subject input:focus, .compose-input-body textarea:focus{
     outline: none;
 }
+
+.read{
+    background-color: #f5f7f7;
+}
