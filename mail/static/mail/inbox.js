@@ -12,6 +12,11 @@ document.addEventListener('DOMContentLoaded', function() {
   document.querySelector('#compose_cancel').addEventListener('click', () => load_mailbox('inbox'));
   document.querySelector('#refresh').addEventListener('click', refresh);
   document.querySelector('#back').addEventListener('click', refresh);
+  document.querySelector('.closebtn').onclick = close_box;
+
+  ///////////////////////////////////////////////////////////////////
+
+
 
   document.querySelector('#mark-archive').addEventListener('click', () => {
     let mail_id = document.querySelector('#mark-archive').dataset.mail_id;
@@ -21,6 +26,7 @@ document.addEventListener('DOMContentLoaded', function() {
       callback(mail_id);
     };
     fun(mail_id, show_mail);
+    setTimeout(alert('Email archived.'), 100);
 
   });
   document.querySelector('#mark-unarchive').addEventListener('click', () => {
@@ -31,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function() {
       callback(mail_id);
     };
     fun(mail_id, show_mail);
-
+    setTimeout(alert('Email moved to Inbox.'), 100);
   });
   document.querySelector('#mark-read').addEventListener('click', () => {
     let mail_id = document.querySelector('#mark-read').dataset.mail_id;
@@ -41,6 +47,7 @@ document.addEventListener('DOMContentLoaded', function() {
       callback(mail_id);
     }
     fun(mail_id, show_mail);
+    setTimeout(alert('Email marked as read.'), 100);
   });
   document.querySelector('#mark-unread').addEventListener('click', () => {
     let mail_id = document.querySelector('#mark-unread').dataset.mail_id;
@@ -50,18 +57,144 @@ document.addEventListener('DOMContentLoaded', function() {
       callback();
     };
     fun(mail_id, refresh);
+    setTimeout(alert('Email marked as unread.'), 100);
 
   });
 
 
   // By default, load the inbox
   load_mailbox('inbox');
+
+
+  //setTimeout(each_select(), 3000);console.log('after each_select');
+  
+  //setTimeout(function() {
+  //  each_select();
+    //document.querySelectorAll('.checkbox').forEach(function(checkbox) {
+    //  checkbox.addEventListener('click', () => {
+    //    let b_color = checkbox.parentElement.parentElement.style.backgroundColor;
+    //    if(checkbox.checked) 
+    //      {checkbox.parentElement.parentElement.style.backgroundColor = 'blue';}
+    //    else 
+    //      {checkbox.parentElement.parentElement.style.backgroundColor = b_color;}
+    //  });
+    //});
+    
+  //},3000);
 });
 
 
+
+/////////////////////////////////////////////////////////////////////////////////////////////////
+function list_read() {
+  let check_boxes = document.querySelectorAll('.checkbox:checked');
+  check_boxes.forEach(function(checkbox) {
+    let mail_id = checkbox.value;
+    mark_read(mail_id);
+    checkbox.parentElement.parentElement.style.backgroundColor = '#f5f7f7';
+  });
+  setTimeout(alert(`${check_boxes.length} email(s) marked as read.`), 350);
+}
+function list_unread() {
+  let check_boxes = document.querySelectorAll('.checkbox:checked');
+  check_boxes.forEach(function(checkbox) {
+    let mail_id = checkbox.value;
+    mark_unread(mail_id);
+    checkbox.parentElement.parentElement.style.backgroundColor = '#ffffff';
+  });
+  setTimeout(alert(`${check_boxes.length} email(s) marked as unread.`), 350);
+}
+function list_archive() {
+  let check_boxes = document.querySelectorAll('.checkbox:checked');
+  check_boxes.forEach(function(checkbox) {
+    let mail_id = checkbox.value;
+    mark_archive(mail_id);
+  });
+  setTimeout(alert(`${check_boxes.length} email(s) archived.`), 350);
+  setTimeout(refresh(), 80);
+}
+function list_unarchive() {
+  let check_boxes = document.querySelectorAll('.checkbox:checked');
+  check_boxes.forEach(function(checkbox) {
+    let mail_id = checkbox.value;
+    //document.querySelector('#mark-read').dataset.mail_id = mail_id;
+    mark_unarchive(mail_id);
+  });
+  setTimeout(alert(`${check_boxes.length} email(s) moved to inbox.`), 350);
+  setTimeout(refresh(), 80);
+}
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+function check_fun() {
+
+  document.querySelector('#mark-read').setAttribute('class', 'list-read');
+  document.querySelector('#mark-unread').setAttribute('class', 'list-unread');
+  document.querySelector('#mark-archive').setAttribute('class', 'list-archive');
+  document.querySelector('#mark-unarchive').setAttribute('class', 'list-unarchive');
+
+  document.querySelector('#mark-read').style.display = 'inline';
+  document.querySelector('#mark-unread').style.display = 'inline';
+  let mailbox = document.querySelector('.active').querySelector('.box_name').innerHTML.toLowerCase();
+  if(mailbox == 'inbox') {
+    document.querySelector('#mark-archive').style.display = 'inline';
+    document.querySelector('#mark-unarchive').style.display = 'none';
+  }
+  else if(mailbox == 'sent') {
+    document.querySelector('#mark-archive').style.display = 'none';
+    document.querySelector('#mark-unarchive').style.display = 'none';
+  }
+  else if(mailbox == 'archive') {
+    document.querySelector('#mark-archive').style.display = 'none';
+    document.querySelector('#mark-unarchive').style.display = 'inline';
+  }
+}
+
+function select() {
+  let checkbox = document.querySelector('#all_check');
+  checkbox.addEventListener('click', () => {
+    if (checkbox.checked) {
+      document.querySelectorAll('.checkbox').forEach(function(check) {
+        check.checked = true;
+      });
+      check_fun();
+    }
+    else {
+      document.querySelectorAll('.checkbox').forEach(function(check) {
+        check.checked = false;
+      });
+      document.querySelector('#mark-read').style.display = 'none';
+      document.querySelector('#mark-unread').style.display = 'none';
+      document.querySelector('#mark-archive').style.display = 'none';
+      document.querySelector('#mark-unarchive').style.display = 'none';
+    }
+  });
+}
+
+function each_select() {
+  document.querySelectorAll('.checkbox').forEach(function(check) {
+    check.addEventListener('click', () => {
+      if (check.checked)
+        {check_fun();}
+      else if (document.querySelectorAll('.checkbox:checked').length > 0)
+        {check_fun();}
+      else {
+        document.querySelector('#mark-read').style.display = 'none';
+        document.querySelector('#mark-unread').style.display = 'none';
+        document.querySelector('#mark-archive').style.display = 'none';
+        document.querySelector('#mark-unarchive').style.display = 'none';
+      }
+    });
+  });
+}
+
 function refresh() {
   setTimeout(() => {
-    let refresh_item = document.querySelector('.active').innerHTML;
+    let refresh_item = document.querySelector('.active').querySelector('.box_name').innerHTML;
     load_mailbox(refresh_item.toLowerCase());
   }, 80);
 }
@@ -166,6 +299,7 @@ function load_mailbox(mailbox) {
     document.querySelector('#mark-unarchive').style.display = 'none';
     document.querySelector('#mark-read').style.display = 'none';
     document.querySelector('#mark-unread').style.display = 'none';
+    document.querySelector('#all_check').style.display = 'inline';
 
     // Show the mailbox and hide other views
     document.querySelector('#emails-view').style.display = 'block';
@@ -178,27 +312,48 @@ function load_mailbox(mailbox) {
     .then(response => response.json())
     .then(emails => {
       emails.forEach(email => {
+        let parent_list_email = document.createElement('div');
+        parent_list_email.setAttribute('class', 'parent_list_email');
+        parent_list_email.setAttribute('id', email.id);
+        let list_item0 = document.createElement('div');
+        list_item0.setAttribute('class', 'select-box');
+        //let checkbox = list_item0.createElement('input');
+        //checkbox.setAttribute('type', 'checkbox');
+        //checkbox.setAttribute('value', email.id);
+        //////////////////////////////////let cc = document.createElement('input');
+        //////////////////////////////////cc.setAttribute('type', 'checkbox');
+        //////////////////////////////////cc.setAttribute('value', email.id);
+        //////////////////////////////////list_item0.append(cc);
+        list_item0.innerHTML = `<input type='checkbox' class='checkbox' name='checkbox' value=${email.id}>`;
+        parent_list_email.appendChild(list_item0);
         let list_item = document.createElement('div');
         list_item.setAttribute('class', 'list_email');
         list_item.setAttribute('data-id', email.id);
         list_item.setAttribute('onclick', `show_mail(${email.id})`);
+        parent_list_email.appendChild(list_item);
         if (email.read == true)
-          {
-            list_item.style.backgroundColor = '#f5f7f7';
-          }
+          {parent_list_email.style.backgroundColor = '#f5f7f7';}
+        else 
+          {parent_list_email.style.backgroundColor = 'white';}
         list_item.innerHTML =
           `<div class='list_name'>${email.sender_name}</div>
           <div class='list_subject'>${text_truncate(email.subject, 65, 'heading')}<span id='grey'>${text_truncate(email.body, 65-(text_truncate(email.subject, 65, 'heading').length), 'body')}</span></div>
           <div class='list_time'>${email.timestamp}</div>`;
-        document.querySelector("#emails-view").append(list_item);
+        document.querySelector("#emails-view").append(parent_list_email);
       });
     });
+
+    
     
     if (document.querySelector('.active')){
       document.querySelector('.active').className = '';
     }
     document.querySelector(`#${mailbox}`).className += 'active';
   }, 80);
+  setTimeout(function() {
+    select();
+    each_select();
+  }, 500);
 
 }
 
@@ -225,6 +380,11 @@ function text_truncate(str, length, type) {
 function show_mail(mail_id) {
 
   mark_read(mail_id);
+//////////////////////////////////////////////////////////////////////////////////////
+  document.querySelector('#mark-read').setAttribute('class', '');
+  document.querySelector('#mark-unread').setAttribute('class', '');
+  document.querySelector('#mark-archive').setAttribute('class', '');
+  document.querySelector('#mark-unarchive').setAttribute('class', '');
 
   setTimeout(() => {
     document.querySelector('.main-top').style.display = 'block';
@@ -233,8 +393,9 @@ function show_mail(mail_id) {
     document.querySelector('#email-view').style.display = 'block';
     document.querySelector('#back').style.display = 'inline';
     document.querySelector('#refresh').style.display = 'none';
-    document.querySelector("#mark-unread").style.display = 'inline';
-    document.querySelector('#mark-read').style.display = 'none';
+    //document.querySelector("#mark-unread").style.display = 'inline';
+    //document.querySelector('#mark-read').style.display = 'none';
+    document.querySelector('#all_check').style.display = 'none';
   
     fetch('/emails/' + parseInt(mail_id))
     .then(response => response.json())
@@ -245,28 +406,29 @@ function show_mail(mail_id) {
       document.querySelector('#email-receiver').innerHTML = 'To: '+email.recipients;
       document.querySelector('#email-time').innerHTML = email.timestamp;
       document.querySelector('#email-body').innerText = email.body;
-      if (true) {                               //////////  email.sender !== my_email  //////////
-        if (email.archived === true)
-        {
-          document.querySelector("#mark-unarchive").style.display = 'inline';
-          document.querySelector('#mark-archive').style.display = 'none';
-        }
-      else
-        {
-          document.querySelector('#mark-unarchive').style.display = 'none';
-          document.querySelector('#mark-archive').style.display = 'inline';
-        }
-      if (email.read === true)
-        {
-          document.querySelector('#mark-read').style.display = 'none';
-          document.querySelector('#mark-unread').style.display = 'inline';
-        }
-      else
-        {
-          document.querySelector('#mark-unread').style.display = 'none';
-          document.querySelector('#mark-read').style.display = 'inline';
-        }
+
+      if (email.archived === true) {
+        document.querySelector("#mark-unarchive").style.display = 'inline';
+        document.querySelector('#mark-archive').style.display = 'none';
       }
+      else {
+        document.querySelector('#mark-unarchive').style.display = 'none';
+        document.querySelector('#mark-archive').style.display = 'inline';
+      }
+      if (email.read === true) {
+        document.querySelector('#mark-read').style.display = 'none';
+        document.querySelector('#mark-unread').style.display = 'inline';
+      }
+      else {
+        document.querySelector('#mark-unread').style.display = 'none';
+        document.querySelector('#mark-read').style.display = 'inline';
+      }
+
+      if (document.querySelector('.active').querySelector('.box_name').innerHTML === 'Sent') {
+        document.querySelector('#mark-unarchive').style.display = 'none';
+        document.querySelector('#mark-archive').style.display = 'none';
+      }
+
       document.querySelector("#mark-archive").setAttribute('data-mail_id', email.id);
       document.querySelector("#mark-unarchive").setAttribute('data-mail_id', email.id);
       document.querySelector('#mark-read').setAttribute('data-mail_id', email.id);
@@ -294,6 +456,27 @@ function send() {
   .then(result => {
     console.log(result);
     load_mailbox('sent');
+    setTimeout(alert('Email sent.'), 200);
   });
   return false;
+}
+
+function close_box() {
+  let close = document.querySelector(".closebtn");
+
+  let div = close.parentElement;
+  div.style.opacity = "0";
+  setTimeout(function(){ div.style.display = "none"; }, 600);
+}
+
+function alert(message) {
+  document.querySelector('.message').innerHTML = message;
+  let div = document.querySelector('.alert');
+  div.style.opacity = "1";
+  div.style.display = 'block';
+  setTimeout(() => {
+    if (div.style.display === 'block') {
+      close_box();
+    }
+  }, 4000);
 }

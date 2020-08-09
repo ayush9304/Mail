@@ -38,23 +38,33 @@
 }
 
 
-.list_email{
+.parent_list_email{
     border: .1px solid rgba(0, 0, 0, 0);
     border-bottom-color: rgba(0,0,0,.1);
     display: flex;
-    justify-content: space-between;
     padding-top: .5em;
     padding-bottom: .5em;
-    padding-left: 5%;
+    padding-left: 2%;
     padding-right: 5%;
+    cursor: pointer;
 }
-.list_email:hover{
+.parent_list_email:hover{
     border-left-color: rgba(0,0,0,.1);
     border-right-color: rgba(0,0,0,.1);
     border-bottom-color: rgba(0,0,0,.1);
     box-shadow: 0 .5px 5px rgba(0,0,0,.1);
-    cursor: pointer;
     transform: scaleZ(1.5);
+}
+.select-box{
+    margin-top: auto;
+    margin-bottom: auto;
+}
+.list_email{
+    justify-content: space-between;
+    display: flex;
+    margin-left: 3%;
+    box-sizing: border-box;
+    width: 100%;
 }
 
 .list_name{
@@ -129,21 +139,23 @@
     position: fixed;
     padding: 20px 10px 20px 15px;
 }
-.sidebar div{
+.sidebar > div{
     padding: 4px 12px;
+    display: flex;
+    justify-content: space-between;
 }
-.sidebar div:hover{
+.sidebar > div:hover{
     cursor: pointer;
     background-color: rgba(0, 91, 230, .1);
 }
 .sidebar .active:hover{
     background-color: rgba(0, 91, 230, .3);
 }
-.sidebar div:active{
+.sidebar > div:active{
     cursor: pointer;
     background-color: rgba(0, 91, 230, .3);
 }
-.sidebar button{
+.sidebar > button{
     margin-bottom: 10px;
 }
 
@@ -156,18 +168,22 @@
     position: relative;
     left: 15%;
     width: 85%;
+    min-height: 90vh;
     padding: 0px 20px 20px 20px;
 }
 .main-top{
+    display: flex;
     height: 8vh;
     position: sticky;
     top: 11vh;
     background-color: white;
     border-bottom: .5px solid rgba(0, 0, 0, .2);
+    padding-left: 2%;
 }
-.action-buttons{
-    position: absolute;
-    top: 2vh;
+.main-top > div{
+    height: 100%;
+    width: 100%;
+    padding-top: 2vh;
 }
 .main-top button{
     border: none;
@@ -186,6 +202,7 @@
 #email-view{
     min-height: 100px;
     padding: 10px 20px 10px 20px;
+    word-break: break-all;
 }
 #email-subject{
     font-size: 1.5em;
@@ -264,4 +281,33 @@
 
 #grey{
     color: #5f6368;
+}
+
+.alert {
+    position: fixed;
+    left: 2.2%;
+    bottom: 4vh;
+    padding: 13px;
+    background-color: #605e5c;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+    color: white;
+    opacity: 1;
+    transition: opacity 0.6s;
+    word-break: break-all;
+    overflow: hidden;
+    display: none;
+}
+.closebtn {
+    margin-left: 15px;
+    color: white;
+    font-weight: bold;
+    float: right;
+    font-size: 22px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.closebtn:hover {
+    color: black;
 }
