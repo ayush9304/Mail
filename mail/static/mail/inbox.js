@@ -14,78 +14,76 @@ document.addEventListener('DOMContentLoaded', function() {
   document.querySelector('#back').addEventListener('click', refresh);
   document.querySelector('.closebtn').onclick = close_box;
 
-  ///////////////////////////////////////////////////////////////////
 
 
 
   document.querySelector('#mark-archive').addEventListener('click', () => {
     let mail_id = document.querySelector('#mark-archive').dataset.mail_id;
 
-    function fun(mail_id, callback) {
-      mark_archive(mail_id);
-      callback(mail_id);
-    };
-    fun(mail_id, show_mail);
-    setTimeout(alert('Email archived.'), 100);
-
+    if(mail_id === 'multiple')
+      {list_archive();}
+    else {
+      function fun(mail_id, callback) {
+        mark_archive(mail_id);
+        callback(mail_id);
+      };
+      fun(mail_id, show_mail);
+      setTimeout(alert('Email archived.'), 100);
+    }
   });
+
   document.querySelector('#mark-unarchive').addEventListener('click', () => {
     let mail_id = document.querySelector('#mark-unarchive').dataset.mail_id;
 
-    function fun(mail_id, callback) {
-      mark_unarchive(mail_id);
-      callback(mail_id);
-    };
-    fun(mail_id, show_mail);
-    setTimeout(alert('Email moved to Inbox.'), 100);
+    if(mail_id === 'multiple')
+      {list_unarchive();}
+    else {
+      function fun(mail_id, callback) {
+        mark_unarchive(mail_id);
+        callback(mail_id);
+      };
+      fun(mail_id, show_mail);
+      setTimeout(alert('Email moved to Inbox.'), 100);
+    }
   });
+
   document.querySelector('#mark-read').addEventListener('click', () => {
     let mail_id = document.querySelector('#mark-read').dataset.mail_id;
 
-    function fun(mail_id, callback) {
-      mark_read(mail_id);
-      callback(mail_id);
+    if(mail_id === 'multiple')
+      {list_read();}
+    else {
+      function fun(mail_id, callback) {
+        mark_read(mail_id);
+        callback(mail_id);
+      }
+      fun(mail_id, show_mail);
+      setTimeout(alert('Email marked as read.'), 100);
     }
-    fun(mail_id, show_mail);
-    setTimeout(alert('Email marked as read.'), 100);
   });
+
   document.querySelector('#mark-unread').addEventListener('click', () => {
     let mail_id = document.querySelector('#mark-unread').dataset.mail_id;
 
-    function fun(mail_id, callback) {
-      mark_unread(mail_id);
-      callback();
-    };
-    fun(mail_id, refresh);
-    setTimeout(alert('Email marked as unread.'), 100);
-
+    if(mail_id === 'multiple')
+      {list_unread();}
+    else {
+      function fun(mail_id, callback) {
+        mark_unread(mail_id);
+        callback();
+      };
+      fun(mail_id, refresh);
+      setTimeout(alert('Email marked as unread.'), 100);
+    }
   });
 
 
   // By default, load the inbox
   load_mailbox('inbox');
 
-
-  //setTimeout(each_select(), 3000);console.log('after each_select');
-  
-  //setTimeout(function() {
-  //  each_select();
-    //document.querySelectorAll('.checkbox').forEach(function(checkbox) {
-    //  checkbox.addEventListener('click', () => {
-    //    let b_color = checkbox.parentElement.parentElement.style.backgroundColor;
-    //    if(checkbox.checked) 
-    //      {checkbox.parentElement.parentElement.style.backgroundColor = 'blue';}
-    //    else 
-    //      {checkbox.parentElement.parentElement.style.backgroundColor = b_color;}
-    //  });
-    //});
-    
-  //},3000);
 });
 
 
-
-/////////////////////////////////////////////////////////////////////////////////////////////////
 function list_read() {
   let check_boxes = document.querySelectorAll('.checkbox:checked');
   check_boxes.forEach(function(checkbox) {
@@ -95,6 +93,7 @@ function list_read() {
   });
   setTimeout(alert(`${check_boxes.length} email(s) marked as read.`), 350);
 }
+
 function list_unread() {
   let check_boxes = document.querySelectorAll('.checkbox:checked');
   check_boxes.forEach(function(checkbox) {
@@ -104,6 +103,7 @@ function list_unread() {
   });
   setTimeout(alert(`${check_boxes.length} email(s) marked as unread.`), 350);
 }
+
 function list_archive() {
   let check_boxes = document.querySelectorAll('.checkbox:checked');
   check_boxes.forEach(function(checkbox) {
@@ -113,22 +113,16 @@ function list_archive() {
   setTimeout(alert(`${check_boxes.length} email(s) archived.`), 350);
   setTimeout(refresh(), 80);
 }
+
 function list_unarchive() {
   let check_boxes = document.querySelectorAll('.checkbox:checked');
   check_boxes.forEach(function(checkbox) {
     let mail_id = checkbox.value;
-    //document.querySelector('#mark-read').dataset.mail_id = mail_id;
     mark_unarchive(mail_id);
   });
   setTimeout(alert(`${check_boxes.length} email(s) moved to inbox.`), 350);
   setTimeout(refresh(), 80);
 }
-///////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-
-
-
 
 function check_fun() {
 
@@ -156,6 +150,12 @@ function check_fun() {
 
 function select() {
   let checkbox = document.querySelector('#all_check');
+
+  document.querySelector("#mark-archive").setAttribute('data-mail_id', 'multiple');
+  document.querySelector("#mark-unarchive").setAttribute('data-mail_id', 'multiple');
+  document.querySelector('#mark-read').setAttribute('data-mail_id', 'multiple');
+  document.querySelector('#mark-unread').setAttribute('data-mail_id', 'multiple');
+
   checkbox.addEventListener('click', () => {
     if (checkbox.checked) {
       document.querySelectorAll('.checkbox').forEach(function(check) {
@@ -317,13 +317,6 @@ function load_mailbox(mailbox) {
         parent_list_email.setAttribute('id', email.id);
         let list_item0 = document.createElement('div');
         list_item0.setAttribute('class', 'select-box');
-        //let checkbox = list_item0.createElement('input');
-        //checkbox.setAttribute('type', 'checkbox');
-        //checkbox.setAttribute('value', email.id);
-        //////////////////////////////////let cc = document.createElement('input');
-        //////////////////////////////////cc.setAttribute('type', 'checkbox');
-        //////////////////////////////////cc.setAttribute('value', email.id);
-        //////////////////////////////////list_item0.append(cc);
         list_item0.innerHTML = `<input type='checkbox' class='checkbox' name='checkbox' value=${email.id}>`;
         parent_list_email.appendChild(list_item0);
         let list_item = document.createElement('div');
@@ -351,9 +344,10 @@ function load_mailbox(mailbox) {
     document.querySelector(`#${mailbox}`).className += 'active';
   }, 80);
   setTimeout(function() {
+    document.querySelector('#all_check').checked = false;
     select();
     each_select();
-  }, 500);
+  }, 200);
 
 }
 
@@ -380,11 +374,6 @@ function text_truncate(str, length, type) {
 function show_mail(mail_id) {
 
   mark_read(mail_id);
-//////////////////////////////////////////////////////////////////////////////////////
-  document.querySelector('#mark-read').setAttribute('class', '');
-  document.querySelector('#mark-unread').setAttribute('class', '');
-  document.querySelector('#mark-archive').setAttribute('class', '');
-  document.querySelector('#mark-unarchive').setAttribute('class', '');
 
   setTimeout(() => {
     document.querySelector('.main-top').style.display = 'block';
@@ -393,8 +382,6 @@ function show_mail(mail_id) {
     document.querySelector('#email-view').style.display = 'block';
     document.querySelector('#back').style.display = 'inline';
     document.querySelector('#refresh').style.display = 'none';
-    //document.querySelector("#mark-unread").style.display = 'inline';
-    //document.querySelector('#mark-read').style.display = 'none';
     document.querySelector('#all_check').style.display = 'none';
   
     fetch('/emails/' + parseInt(mail_id))
@@ -402,7 +389,7 @@ function show_mail(mail_id) {
     .then(email => {
       document.querySelector('#email-subject').innerHTML = email.subject;
       document.querySelector('#email-sender-name').innerHTML = email.sender_name;
-      document.querySelector('#email-sender-address').innerHTML = '('+email.sender+')';
+      document.querySelector('#email-sender-address').innerText = `<${email.sender}>`;
       document.querySelector('#email-receiver').innerHTML = 'To: '+email.recipients;
       document.querySelector('#email-time').innerHTML = email.timestamp;
       document.querySelector('#email-body').innerText = email.body;
