@@ -124,6 +124,7 @@ function list_unarchive() {
   setTimeout(refresh(), 80);
 }
 
+
 function check_fun() {
 
   document.querySelector('#mark-read').setAttribute('class', 'list-read');
@@ -192,12 +193,14 @@ function each_select() {
   });
 }
 
+
 function refresh() {
   setTimeout(() => {
     let refresh_item = document.querySelector('.active').querySelector('.box_name').innerHTML;
     load_mailbox(refresh_item.toLowerCase());
   }, 80);
 }
+
 
 function mark_archive(id) {
   fetch('/emails/' + parseInt(id), {
@@ -234,6 +237,7 @@ function mark_unread(id) {
     })
   });
 }
+
 
 function compose_email(purpose) {
 

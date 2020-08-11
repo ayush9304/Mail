@@ -16,7 +16,7 @@
             </center>
         </div>
     
-        <form action="{% url 'login' %}" method="post" style="width: 100%;">
+        <form action="{% url 'login' %}" method="post" style="width: 100%;" id='signin-form'>
             {% csrf_token %}
             <div class="form-group">
                 <input class="form-control" type="email" name="email" placeholder="Email Address" value="{{email | default:''}}" autocomplete="off">
@@ -27,7 +27,7 @@
                 <span class="star"><small id='pwd_msg'>{{message | default:''}}</small></span>
             </div>
             <center>
-                <input class="btn btn-primary" type="button" value="Sign In">
+                <input class="btn btn-primary" type="submit" value="Sign In">
             </center>
         </form>
     

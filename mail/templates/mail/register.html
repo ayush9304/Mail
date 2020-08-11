@@ -15,7 +15,7 @@
             </center>
         </div>
     
-        <form action="{% url 'register' %}" method="post">
+        <form action="{% url 'register' %}" method="post" id='signup-form'>
             {% csrf_token %}
             <div class="form-group name-input">
                 <div>
@@ -40,7 +40,7 @@
                 <span class="star"><small id='cpwd_msg'></small></span>
             </div>
             <center>
-                <input class="btn btn-primary" type="button" value="Sign Up">
+                <input class="btn btn-primary" type="submit" value="Sign Up">
             </center>
         </form>
     
