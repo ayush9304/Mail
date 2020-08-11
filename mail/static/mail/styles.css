@@ -10,7 +10,14 @@
     color: red;
 }
 
+#container{
+    background: url('Images/bg.svg');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
 .user-box{
+    background-color: #fff;
     width: 45%;
     height: 90vh;
     border-radius: 5px;

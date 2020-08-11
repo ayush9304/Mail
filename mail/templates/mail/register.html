@@ -19,7 +19,7 @@
             {% csrf_token %}
             <div class="form-group name-input">
                 <div>
-                    <input class="form-control" type="text" name="first_name" placeholder="First Name" value="{{first_name | default:''}}" autocomplete="off">
+                    <input class="form-control" type="text" name="first_name" placeholder="First Name" value="{{first_name | default:''}}" autocomplete="off" autofocus>
                     <span class="star"><small id='fname_msg'></small></span>
                 </div>
                 <div>

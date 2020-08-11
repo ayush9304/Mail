@@ -291,6 +291,7 @@ function compose_email(purpose) {
   }
 }
 
+
 function load_mailbox(mailbox) {
 
   setTimeout(() => {
@@ -315,44 +316,46 @@ function load_mailbox(mailbox) {
     fetch(`/emails/${mailbox}`)
     .then(response => response.json())
     .then(emails => {
-      emails.forEach(email => {
-        let parent_list_email = document.createElement('div');
-        parent_list_email.setAttribute('class', 'parent_list_email');
-        parent_list_email.setAttribute('id', email.id);
-        let list_item0 = document.createElement('div');
-        list_item0.setAttribute('class', 'select-box');
-        list_item0.innerHTML = `<input type='checkbox' class='checkbox' name='checkbox' value=${email.id}>`;
-        parent_list_email.appendChild(list_item0);
-        let list_item = document.createElement('div');
-        list_item.setAttribute('class', 'list_email');
-        list_item.setAttribute('data-id', email.id);
-        list_item.setAttribute('onclick', `show_mail(${email.id})`);
-        parent_list_email.appendChild(list_item);
-        if (email.read == true)
-          {parent_list_email.style.backgroundColor = '#f5f7f7';}
-        else 
-          {parent_list_email.style.backgroundColor = 'white';}
-        list_item.innerHTML =
-          `<div class='list_name'>${email.sender_name}</div>
-          <div class='list_subject'>${text_truncate(email.subject, 65, 'heading')}<span id='grey'>${text_truncate(email.body, 65-(text_truncate(email.subject, 65, 'heading').length), 'body')}</span></div>
-          <div class='list_time'>${email.timestamp}</div>`;
-        document.querySelector("#emails-view").append(parent_list_email);
-      });
+        emails.forEach(email => {
+          display(email);
+        });
     });
-
-    
     
     if (document.querySelector('.active')){
       document.querySelector('.active').className = '';
     }
     document.querySelector(`#${mailbox}`).className += 'active';
-  }, 80);
+  }, 100);
   setTimeout(function() {
     document.querySelector('#all_check').checked = false;
     select();
     each_select();
-  }, 200);
+  }, 400);
 
+}
+
+function display(email) {
+  let parent_list_email = document.createElement('div');
+  parent_list_email.setAttribute('class', 'parent_list_email');
+  parent_list_email.setAttribute('id', email.id);
+  let list_item0 = document.createElement('div');
+  list_item0.setAttribute('class', 'select-box');
+  list_item0.innerHTML = `<input type='checkbox' class='checkbox' name='checkbox' value=${email.id}>`;
+  parent_list_email.appendChild(list_item0);
+  let list_item = document.createElement('div');
+  list_item.setAttribute('class', 'list_email');
+  list_item.setAttribute('data-id', email.id);
+  list_item.setAttribute('onclick', `show_mail(${email.id})`);
+  parent_list_email.appendChild(list_item);
+  if (email.read == true)
+    {parent_list_email.style.backgroundColor = '#f5f7f7';}
+  else 
+    {parent_list_email.style.backgroundColor = 'white';}
+  list_item.innerHTML =
+    `<div class='list_name'>${email.sender_name}</div>
+    <div class='list_subject'>${text_truncate(email.subject, 65, 'heading')}<span id='grey'>${text_truncate(email.body, 65-(text_truncate(email.subject, 65, 'heading').length), 'body')}</span></div>
+    <div class='list_time'>${email.timestamp}</div>`;
+  document.querySelector("#emails-view").append(parent_list_email);
 }
 
 function text_truncate(str, length, type) {

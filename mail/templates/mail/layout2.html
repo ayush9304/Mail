@@ -8,6 +8,11 @@
         <link rel="stylesheet" href="{% static 'mail/styles.css' %}">
         {% block script %}
         {% endblock %}
+        <style>
+            body{
+                background-image: url({% static 'mail/Images/bg.svg' %});
+            }
+        </style>
     </head>
     <body>
         <div class="container">
