@@ -449,6 +449,16 @@ function send() {
   .then(response => response.json())
   .then(result => {
     console.log(result);
+    if(result.error) {
+      setTimeout(() => {
+        alert(result.error);
+        compose_email('new');
+        document.querySelector('#compose-recipients').value = recipients;
+        document.querySelector('#compose-subject').value = subject;
+        document.querySelector('#compose-body').value = body;
+      },200);
+      return false;
+    }
     load_mailbox('sent');
     setTimeout(alert('Email sent.'), 200);
   });
